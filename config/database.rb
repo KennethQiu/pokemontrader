@@ -4,17 +4,26 @@ configure :development do
 end
 
 configure :development, :test do
-  # set :database, {
-  #   'development' => {
-  #     'adapter' => 'sqlite3',
-  #     'database' => APP_ROOT.join('db', 'development.sqlite3')
-  #   },
-  #   'test' => {
-  #     'adapter' => 'sqlite3',
-  #     'database' => APP_ROOT.join('db', 'test.sqlite3')
-  #   }
-  # }
-  # db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+#   set :database, {
+#     'development' => {
+#       'adapter' => 'sqlite3',
+#       'database' => APP_ROOT.join('db', 'development.sqlite3')
+#     },
+#     'test' => {
+#       'adapter' => 'sqlite3',
+#       'database' => APP_ROOT.join('db', 'test.sqlite3')
+#     }
+#   }
+#   db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
+
+if development?
+  set :database, {
+    'adapter' => 'sqlite3'
+    'database' => 'db/db.sqlite3'
+  }
+else
+  set :database, ENV['DATABASE_URL']
+
 
   ActiveRecord::Base.establish_connection(
       :adapter => 'postgresql',
