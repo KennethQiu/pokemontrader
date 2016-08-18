@@ -16,13 +16,14 @@ configure :development, :test do
 #   }
 #   db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
 
-if development?
-  set :database, {
-    'adapter' => 'sqlite3'
-    'database' => 'db/db.sqlite3'
-  }
-else
-  set :database, ENV['DATABASE_URL']
+  if development?
+    set :database, {
+      adapter: 'sqlite3',
+      database: 'db/db.sqlite3'
+    }
+  else
+    set :database, ENV['DATABASE_URL']
+  end
 
 
   ActiveRecord::Base.establish_connection(
